@@ -1,0 +1,14 @@
+version: torpedo.darksub.io/v1.0
+kind: app
+spec:
+  name: "Booking Fly System"
+  description: "Application example"
+  stack:
+    lang: go
+    package: "github.com/darksubmarine/booking-fly"
+  domain:
+    entities:
+      - entities/user.yaml
+      - entities/trip.yaml
+    useCases:
+      - use_cases/booking.yaml

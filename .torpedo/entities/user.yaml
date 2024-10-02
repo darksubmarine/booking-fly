@@ -1,0 +1,60 @@
+version: torpedo.darksub.io/v1.0
+kind: entity
+spec:
+  name: "user"
+  plural: "users"
+  description: "The user system"
+
+  schema:
+    reserved:
+      id:
+        type: ulid
+
+    fields:
+      - name: name
+        type: string
+        description: "The user full name"
+
+      - name: email
+        type: string
+        description: "The user contact email"
+
+      - name: password # it is not recommended to save passwords, this is an example only
+        type: string
+        encrypted: true
+        description: "The user system password"
+
+      - name: plan
+        type: string
+        description: "The user membership plan"
+        validate:
+          list:
+            values:
+              - GOLD
+              - SILVER
+              - BRONZE
+
+      - name: miles
+        type: integer
+        description: "The accumulated flyer miles"
+
+  relationships:
+      - name: trips
+        type: $rel
+        ref: ".torpedo/entities/trip.yaml"
+        cardinality: hasMany
+        load:
+          type: nested
+          metadata:
+            maxItems: 100
+
+  adapters:
+    input:
+      - type: http
+
+    output:
+      - type: memory
+
+      - type: mongodb
+        metadata:
+          collection: "users"
