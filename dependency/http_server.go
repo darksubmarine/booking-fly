@@ -8,6 +8,9 @@ import (
 
 	"fmt"
 	"net/http"
+
+	swaggerFiles "github.com/swaggo/files"     // swagger embed files
+	ginSwagger "github.com/swaggo/gin-swagger" // gin-swagger middleware
 )
 
 // HttpServerProvider provides a gin http server
@@ -42,6 +45,9 @@ func (p *HttpServerProvider) Provide(c app.IContainer) error {
 
 	// api v1 group
 	p.apiV1 = p.server.Group("/api/v1")
+
+	// Swagger endpoints
+	p.server.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	return nil
 }
