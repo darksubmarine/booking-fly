@@ -4,7 +4,7 @@ spec:
   name: trip
   plural: trips
   description: "The user fly trip reservations"
-
+  doc: trip.md
   schema:
     reserved:
       id:

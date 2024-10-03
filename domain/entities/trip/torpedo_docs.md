@@ -2,7 +2,7 @@
 
 --------
 
-
+The trip entity handles all data related with the frequent flyer trip
 
 ## Entity Resource Name (TRN)
 

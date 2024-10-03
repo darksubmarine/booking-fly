@@ -8,7 +8,7 @@ spec:
     package: "github.com/darksubmarine/booking-fly"
   domain:
     entities:
-      - entities/user.yaml
-      - entities/trip.yaml
+      - user.yaml
+      - trip.yaml
     useCases:
-      - use_cases/booking.yaml
+      - booking.yaml

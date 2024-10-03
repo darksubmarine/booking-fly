@@ -4,7 +4,7 @@ spec:
   name: "user"
   plural: "users"
   description: "The user system"
-
+  doc: user.md
   schema:
     reserved:
       id:
