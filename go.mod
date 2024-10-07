@@ -3,7 +3,7 @@ module github.com/darksubmarine/booking-fly
 go 1.22.3
 
 require (
-	github.com/darksubmarine/torpedo-lib-go v0.5.3
+	github.com/darksubmarine/torpedo-lib-go v0.5.4
 	github.com/gin-gonic/gin v1.10.0
 	github.com/stretchr/testify v1.9.0
 	github.com/swaggo/files v1.0.1
