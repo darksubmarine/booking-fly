@@ -1,0 +1,40 @@
+version: torpedo.darksub.io/v1.0
+kind: entity
+spec:
+  name: trip
+  plural: trips
+  description: "The user fly trip reservations"
+  doc: trip.md
+  schema:
+    reserved:
+      id:
+        type: ulid
+
+    fields:
+      - name: departure
+        type: string
+        description: "The trip departure airport"
+
+      - name: arrival
+        type: string
+        description: "The trip arrival airport"
+
+      - name: miles
+        type: integer
+        description: "The trip miles"
+
+      - name: from
+        type: date
+        description: "The trip from date"
+
+      - name: to
+        type: date
+        description: "The trip to date"
+
+  adapters:
+    input:
+      - type: http
+
+    output:
+      - type: memory
+      - type: mongodb

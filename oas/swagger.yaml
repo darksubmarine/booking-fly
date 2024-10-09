@@ -1,0 +1,560 @@
+basePath: /api/v1
+definitions:
+  api.Error:
+    properties:
+      code:
+        type: string
+      error:
+        type: string
+    type: object
+  trip.FullDTO:
+    properties:
+      arrival:
+        type: string
+      created:
+        type: integer
+      departure:
+        type: string
+      from:
+        type: integer
+      id:
+        type: string
+      miles:
+        type: integer
+      to:
+        type: integer
+      updated:
+        type: integer
+      userId:
+        type: string
+    type: object
+  trip.PartialDTO:
+    properties:
+      arrival:
+        type: string
+      departure:
+        type: string
+      from:
+        type: integer
+      miles:
+        type: integer
+      to:
+        type: integer
+      userId:
+        type: string
+    type: object
+  trip.UpdatableDTO:
+    properties:
+      arrival:
+        type: string
+      departure:
+        type: string
+      from:
+        type: integer
+      miles:
+        type: integer
+      to:
+        type: integer
+      userId:
+        type: string
+    type: object
+  useCases.BookingFlyDTO:
+    properties:
+      arrival:
+        type: string
+      departure:
+        type: string
+      from:
+        type: integer
+      miles:
+        type: integer
+      to:
+        type: integer
+      userId:
+        type: string
+    type: object
+  user.FullDTO:
+    properties:
+      created:
+        type: integer
+      email:
+        type: string
+      id:
+        type: string
+      miles:
+        type: integer
+      name:
+        type: string
+      password:
+        type: string
+      plan:
+        type: string
+      trips:
+        items:
+          $ref: '#/definitions/trip.FullDTO'
+        type: array
+      updated:
+        type: integer
+    type: object
+  user.PartialDTO:
+    properties:
+      email:
+        type: string
+      miles:
+        type: integer
+      name:
+        type: string
+      password:
+        type: string
+      plan:
+        type: string
+    type: object
+  user.UpdatableDTO:
+    properties:
+      email:
+        type: string
+      miles:
+        type: integer
+      name:
+        type: string
+      password:
+        type: string
+      plan:
+        type: string
+    type: object
+externalDocs:
+  description: OpenAPI
+  url: https://swagger.io/resources/open-api/
+host: localhost:8080
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: This is a sample server
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Booking Fly Example API
+  version: "1.0"
+paths:
+  /booking:
+    post:
+      consumes:
+      - application/json
+      description: Books a fly given a user and the trip information
+      parameters:
+      - description: The user fly trip reservation
+        in: body
+        name: trip
+        required: true
+        schema:
+          $ref: '#/definitions/useCases.BookingFlyDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/trip.FullDTO'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.Error'
+      summary: Books a fly
+      tags:
+      - UseCases
+  /trips:
+    post:
+      consumes:
+      - application/json
+      description: creates an entity TripEntity
+      parameters:
+      - description: The user fly trip reservations
+        in: body
+        name: trip
+        required: true
+        schema:
+          $ref: '#/definitions/trip.PartialDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/trip.FullDTO'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.Error'
+      summary: create a trip
+      tags:
+      - trips
+  /trips/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: remove an entity TripEntity by Id
+      parameters:
+      - description: trip Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/api.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.Error'
+      summary: remove a trip
+      tags:
+      - trips
+    get:
+      consumes:
+      - application/json
+      description: get an entity TripEntity by Id
+      parameters:
+      - description: trip Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/trip.FullDTO'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/api.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.Error'
+      summary: get a trip
+      tags:
+      - trips
+    put:
+      consumes:
+      - application/json
+      description: updates an entity TripEntity
+      parameters:
+      - description: trip Id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: The user fly trip reservations
+        in: body
+        name: trip
+        required: true
+        schema:
+          $ref: '#/definitions/trip.UpdatableDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/trip.FullDTO'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.Error'
+      summary: update a trip
+      tags:
+      - trips
+  /users:
+    post:
+      consumes:
+      - application/json
+      description: creates an entity UserEntity
+      parameters:
+      - description: The user system
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/user.PartialDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/user.FullDTO'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.Error'
+      summary: create a user
+      tags:
+      - users
+  /users/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: remove an entity UserEntity by Id
+      parameters:
+      - description: user Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/api.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.Error'
+      summary: remove a user
+      tags:
+      - users
+    get:
+      consumes:
+      - application/json
+      description: get an entity UserEntity by Id
+      parameters:
+      - description: user Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/user.FullDTO'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/api.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.Error'
+      summary: get a user
+      tags:
+      - users
+    put:
+      consumes:
+      - application/json
+      description: updates an entity UserEntity
+      parameters:
+      - description: user Id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: The user system
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/user.UpdatableDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/user.FullDTO'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.Error'
+      summary: update a user
+      tags:
+      - users
+  /users/{id}/trips:
+    delete:
+      consumes:
+      - application/json
+      description: remove all entity TripEntity by userId
+      parameters:
+      - description: user Id
+        in: path
+        name: userId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/api.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.Error'
+      summary: remove all trip given a userId
+      tags:
+      - trips
+    get:
+      consumes:
+      - application/json
+      description: get list of entity TripEntity given a userId
+      parameters:
+      - description: userId
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: the pagination page number
+        in: query
+        name: page
+        type: integer
+      - description: the amount of items per page
+        in: query
+        name: items
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/trip.FullDTO'
+            type: array
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/api.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.Error'
+      summary: get a trip list
+      tags:
+      - trips
+    post:
+      consumes:
+      - application/json
+      description: creates an entity TripEntity
+      parameters:
+      - description: The user fly trip reservations
+        in: body
+        name: trip
+        required: true
+        schema:
+          $ref: '#/definitions/trip.PartialDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/trip.FullDTO'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.Error'
+      summary: create a trip
+      tags:
+      - trips
+  /users/{id}/trips/{tripId}:
+    delete:
+      consumes:
+      - application/json
+      description: remove an entity TripEntity by Id
+      parameters:
+      - description: trip Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/api.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.Error'
+      summary: remove a trip
+      tags:
+      - trips
+    put:
+      consumes:
+      - application/json
+      description: updates an entity TripEntity
+      parameters:
+      - description: The user fly trip reservations
+        in: body
+        name: trip
+        required: true
+        schema:
+          $ref: '#/definitions/trip.UpdatableDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/trip.FullDTO'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.Error'
+      summary: update a trip
+      tags:
+      - trips
+swagger: "2.0"

@@ -1,0 +1,1 @@
+The user entity represents a system user but also a frequent flyer. This entity is only for the example purpose.
