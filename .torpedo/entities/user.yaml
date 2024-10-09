@@ -37,7 +37,6 @@ spec:
       - name: miles
         type: integer
         description: "The accumulated flyer miles"
-
   relationships:
       - name: trips
         type: $rel
@@ -47,7 +46,6 @@ spec:
           type: nested
           metadata:
             maxItems: 100
-
   adapters:
     input:
       - type: http

@@ -1,0 +1,14 @@
+version: torpedo.darksub.io/v1.0
+kind: useCase
+spec:
+  name: "BookingFly"
+  description: "Fly reservation use case"
+  doc: booking_fly.md # file path is relative to project
+  docs: |
+    Given a frequent flyer user should be able to do a booking fly from our well known fly routes, selecting the
+    departure airport and the arrival airport, also setting up the from-to fly dates. If the booking is successful, so the
+    system should calculate the user awards and upgrade it following the rules below:
+  domain:
+    entities:
+      - user.yaml
+      - trip.yaml

@@ -11,4 +11,4 @@ spec:
       - user.yaml
       - trip.yaml
     useCases:
-      - booking.yaml
+      - booking_fly.yaml
